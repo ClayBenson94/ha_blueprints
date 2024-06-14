@@ -1,0 +1,182 @@
+blueprint:
+  name: Deconz - Philips Hue - Tap Dial Switch
+  # source_url: https://github.com/home-assistant/core/blob/master/homeassistant/components/script/blueprints/confirmable_notification.yaml # TODO: Add source URL when pushed to git :)
+  homeassistant:
+    min_version: '2024.6.0'
+  description: |
+    Below is a list of variables that are exposed by this blueprint that can be used in templates:
+    - `dial_button`: One of `button1`, `button2`, `button3`, or `button4`, based on what button was being pressed.
+  domain: automation
+  input:
+    remote:
+      name: Hue Dial Switch
+      selector:
+        device:
+          integration: deconz
+          model: RDM002
+          multiple: false
+    short_button_press:
+      name: 🕛 Short Button Presses
+      collapsed: true
+      input:
+        button1:
+          name: Button 1
+          default: []
+          selector:
+            action: {}
+        button2:
+          name: Button 2️
+          default: []
+          selector:
+            action: {}
+        button3:
+          name: Button 3️
+          default: []
+          selector:
+            action: {}
+        button4:
+          name: Button 4️
+          default: []
+          selector:
+            action: {}
+        short_pre:
+          name: Pre short button press
+          description: Action to run ***before every*** short button presses.
+          default: []
+          selector:
+            action: {}
+    long_button_press:
+      name: 🕒 Long Button Presses
+      collapsed: true
+      input:
+        long_press_mode:
+          name: "\"Long Press\" Button Behavior"
+          description: |
+            Define how you want long pressing a button to work.
+            - `Press` will run your actions when releasing after a long press.
+            - `Hold` will run your action multiple times, firing events roughly every ~1s while the button is held.
+          default: press
+          selector:
+            select:
+              options:
+                - value: press
+                  label: Press
+                - value: hold
+                  label: Hold
+        button1_long:
+          name: "Button 1"
+          default: []
+          selector:
+            action: {}
+        button2_long:
+          name: "Button 2"
+          default: []
+          selector:
+            action: {}
+        button3_long:
+          name: "Button 3"
+          default: []
+          selector:
+            action: {}
+        button4_long:
+          name: "Button 4"
+          default: []
+          selector:
+            action: {}
+    rotation:
+      name: Rotation Events
+      collapsed: true
+      input:
+        rotate_left:
+          name: ↪️ Rotate Left
+          description: (-10% Brightness precentage, no transition -> for smooth hue dimming)
+          default: []
+          selector:
+            action: {}
+        rotate_right:
+          name: ↩️ Rotate Right
+          description: (10% Brightness precentage, no transition -> for smooth hue dimming)
+          default: []
+          selector:
+            action: {}
+mode: restart
+max_exceeded: silent
+trigger:
+- platform: event
+  event_type: deconz_event
+  event_data:
+    device_id: !input remote
+- platform: event
+  event_type: deconz_relative_rotary_event
+  event_data:
+    device_id: !input remote
+action:
+  - variables:
+      event: '{{ trigger.event.data.event }}'
+      rotary_event: '{{ trigger.event.data.rotation }}'
+      dial_button: >-
+        {% if (event | string).startswith('1') %}
+          button1
+        {% elif (event | string).startswith('2') %}
+          button2
+        {% elif (event | string).startswith('3') %}
+          button3
+        {% elif (event | string).startswith('4') %}
+          button4
+        {% endif %}
+      long_press_mode: !input long_press_mode
+  - choose:
+    - conditions:
+      - '{{ event == 1002 }}'
+      sequence:
+        - repeat:
+            count: 1
+            sequence: !input short_pre
+        - repeat:
+            count: 1
+            sequence: !input button1
+    - conditions:
+      - '{{ event == 2002 }}'
+      sequence:
+        - repeat:
+            count: 1
+            sequence: !input short_pre
+        - repeat:
+            count: 1
+            sequence: !input button2
+    - conditions:
+      - '{{ event == 3002 }}'
+      sequence:
+        - repeat:
+            count: 1
+            sequence: !input short_pre
+        - repeat:
+            count: 1
+            sequence: !input button3
+    - conditions:
+      - '{{ event == 4002 }}'
+      sequence:
+        - repeat:
+            count: 1
+            sequence: !input short_pre
+        - repeat:
+            count: 1
+            sequence: !input button4
+    - conditions:
+      - '{{ (event == 1001 and long_press_mode == "hold") or (event == 1003 and long_press_mode == "press") }}'
+      sequence: !input button1_long
+    - conditions:
+      - '{{ (event == 2001 and long_press_mode == "hold") or (event == 2003 and long_press_mode == "press") }}'
+      sequence: !input button2_long
+    - conditions:
+      - '{{ (event == 3001 and long_press_mode == "hold") or (event == 3003 and long_press_mode == "press") }}'
+      sequence: !input button3_long
+    - conditions:
+      - '{{ (event == 4001 and long_press_mode == "hold") or (event == 4003 and long_press_mode == "press") }}'
+      sequence: !input button4_long
+    - conditions:
+      - '{{ rotary_event <= 0 }}'
+      sequence: !input rotate_left
+    - conditions:
+      - '{{ rotary_event >= 0 }}'
+      sequence: !input rotate_right
