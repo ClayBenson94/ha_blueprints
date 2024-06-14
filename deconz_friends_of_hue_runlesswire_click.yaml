@@ -1,0 +1,307 @@
+blueprint:
+  name: Friends of Hue (RunLessWire Click)
+  domain: automation
+  input:
+    switch_device_id:
+      name: Switch Device ID
+      description: The Device ID of the Friends of Hue switch
+      selector:
+        text:
+    light_1:
+      name: Lights (Button 1)
+      description: The light entity to control with button 1 of the switch. Clicking will turn on, holding will increase brightness.
+      selector:
+        entity:
+          domain: light
+    light_temp:
+      name: Light Temperature
+      description: The temperature of the light to set
+      selector:
+        number:
+          min: 1538
+          max: 7412
+      default: 3300
+    light_2:
+      name: Lights (Button 2)
+      description: The light entity to control with button 2 of the switch. Clicking will turn off, holding will decrease brightness.
+      selector:
+        entity:
+          domain: light
+    actions_3_press:
+      name: Button 3 Action (Press)
+      description: The action(s) to perform when button 3 is pressed
+      selector:
+        action:
+      default: []
+    actions_3_hold:
+      name: Button 3 Action (Hold)
+      description: The action(s) to perform when button 3 is held
+      selector:
+        action:
+      default: []
+    actions_4_press:
+      name: Button 4 Action (Press)
+      description: The action(s) to perform when button 4 is pressed
+      selector:
+        action:
+      default: []
+    actions_4_hold:
+      name: Button 4 Action (Hold)
+      description: The action(s) to perform when button 4 is held
+      selector:
+        action:
+      default: []
+    actions_top_buttons_press:
+      name: Top Buttons Action (Press)
+      description: The action(s) to perform when both top buttons are pressed
+      selector:
+        action:
+      default: []
+    actions_top_buttons_hold:
+      name: Top Buttons Action (Hold)
+      description: The action(s) to perform when both top buttons are held
+      selector:
+        action:
+      default: []
+    actions_bottom_buttons_press:
+      name: Bottom Buttons Action (Press)
+      description: The action(s) to perform when both bottom buttons are pressed
+      selector:
+        action:
+      default: []
+    actions_bottom_buttons_hold:
+      name: Bottom Buttons Action (Hold)
+      description: The action(s) to perform when both bottom buttons are held
+      selector:
+        action:
+      default: []
+
+
+
+mode: restart
+
+trigger:
+  # Button 1
+  - device_id: !input switch_device_id
+    domain: deconz
+    platform: device
+    type: remote_button_short_release
+    subtype: button_1
+    id: 1_press
+  - device_id: !input switch_device_id
+    domain: deconz
+    platform: device
+    type: remote_button_long_press
+    subtype: button_1
+    id: 1_press_long
+  - device_id: !input switch_device_id
+    domain: deconz
+    platform: device
+    type: remote_button_long_release
+    subtype: button_1
+
+  # Button 2
+  - device_id: !input switch_device_id
+    domain: deconz
+    platform: device
+    type: remote_button_short_release
+    subtype: button_2
+    id: 2_press
+  - device_id: !input switch_device_id
+    domain: deconz
+    platform: device
+    type: remote_button_long_press
+    subtype: button_2
+    id: 2_press_long
+  - device_id: !input switch_device_id
+    domain: deconz
+    platform: device
+    type: remote_button_long_release
+    subtype: button_2
+
+  # Button 3
+  - device_id: !input switch_device_id
+    domain: deconz
+    platform: device
+    type: remote_button_short_release
+    subtype: button_3
+    id: 3_press
+  - device_id: !input switch_device_id
+    domain: deconz
+    platform: device
+    type: remote_button_long_press
+    subtype: button_3
+    id: 3_press_long
+  - device_id: !input switch_device_id
+    domain: deconz
+    platform: device
+    type: remote_button_long_release
+    subtype: button_3
+
+  # Button 4
+  - device_id: !input switch_device_id
+    domain: deconz
+    platform: device
+    type: remote_button_short_release
+    subtype: button_4
+    id: 4_press
+  - device_id: !input switch_device_id
+    domain: deconz
+    platform: device
+    type: remote_button_long_press
+    subtype: button_4
+    id: 4_press_long
+  - device_id: !input switch_device_id
+    domain: deconz
+    platform: device
+    type: remote_button_long_release
+    subtype: button_4
+
+  # Top Buttons
+  - device_id: !input switch_device_id
+    domain: deconz
+    platform: device
+    type: remote_button_short_release
+    subtype: top_buttons
+    id: top_buttons_press
+  - device_id: !input switch_device_id
+    domain: deconz
+    platform: device
+    type: remote_button_long_press
+    subtype: top_buttons
+    id: top_buttons_press_long
+  - device_id: !input switch_device_id
+    domain: deconz
+    platform: device
+    type: remote_button_long_release
+    subtype: top_buttons
+
+  # Bottom Buttons
+  - device_id: !input switch_device_id
+    domain: deconz
+    platform: device
+    type: remote_button_short_release
+    subtype: bottom_buttons
+    id: bottom_buttons_press
+  - device_id: !input switch_device_id
+    domain: deconz
+    platform: device
+    type: remote_button_long_press
+    subtype: bottom_buttons
+    id: bottom_buttons_press_long
+  - device_id: !input switch_device_id
+    domain: deconz
+    platform: device
+    type: remote_button_long_release
+    subtype: bottom_buttons
+
+variables:
+  light_1: !input light_1
+  light_2: !input light_2
+
+action:
+  - choose:
+      # Button 1 Press
+      - conditions:
+          - condition: trigger
+            id: 1_press
+        sequence:
+          - service: light.turn_on
+            data:
+              brightness_pct: 100
+              kelvin: !input light_temp
+              entity_id: !input light_1
+      # Button 1 Hold
+      - conditions:
+          - condition: trigger
+            id: 1_press_long
+        sequence:
+          - repeat:
+              while:
+                - condition: trigger
+                  id: 1_press_long
+              sequence:
+                - service: light.turn_on
+                  data:
+                    brightness_step_pct: 10
+                    entity_id: !input light_1
+                - delay:
+                    hours: 0
+                    minutes: 0
+                    seconds: 0
+                    milliseconds: 500
+
+      # Button 2 Press
+      - conditions:
+          - condition: trigger
+            id: 2_press
+        sequence:
+          - service: light.turn_off
+            data:
+              entity_id: !input light_2
+      # Button 2 Hold
+      - conditions:
+          - condition: trigger
+            id: 2_press_long
+        sequence:
+          - repeat:
+              while:
+                - condition: trigger
+                  id: 2_press_long
+              sequence:
+                - service: light.turn_on
+                  data:
+                    # brightness_step_pct: -10
+                    brightness: >
+                      {% set bri = state_attr(light_2, 'brightness') | int %}
+                      {{ [bri-25, 10] | max }}
+                    entity_id: !input light_2
+                - delay:
+                    hours: 0
+                    minutes: 0
+                    seconds: 0
+                    milliseconds: 500
+
+      # Button 3 Press
+      - conditions:
+          - condition: trigger
+            id: 3_press
+        sequence: !input actions_3_press
+      # Button 3 Hold
+      - conditions:
+          - condition: trigger
+            id: 3_press_long
+        sequence: !input actions_3_hold
+
+      # Button 4 Press
+      - conditions:
+          - condition: trigger
+            id: 4_press
+        sequence: !input actions_4_press
+      # Button 4 Hold
+      - conditions:
+          - condition: trigger
+            id: 4_press_long
+        sequence: !input actions_4_hold
+
+      # Top Buttons Press
+      - conditions:
+          - condition: trigger
+            id: top_buttons_press
+        sequence: !input actions_top_buttons_press
+      # Top Buttons Hold
+      - conditions:
+          - condition: trigger
+            id: top_buttons_press_long
+        sequence: !input actions_top_buttons_hold
+
+      # Bottom Buttons Press
+      - conditions:
+          - condition: trigger
+            id: bottom_buttons_press
+        sequence: !input actions_bottom_buttons_press
+      # Bottom Buttons Hold
+      - conditions:
+          - condition: trigger
+            id: bottom_buttons_press_long
+        sequence: !input actions_bottom_buttons_hold
