@@ -1,6 +1,5 @@
 blueprint:
   name: Deconz - Philips Hue - Tap Dial Switch
-  # source_url: https://github.com/home-assistant/core/blob/master/homeassistant/components/script/blueprints/confirmable_notification.yaml # TODO: Add source URL when pushed to git :)
   homeassistant:
     min_version: '2024.6.0'
   description: |
