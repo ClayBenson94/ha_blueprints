@@ -43,6 +43,13 @@ blueprint:
           default: []
           selector:
             action: {}
+        button_1_hold_delay_ms:
+          name: Long Press
+          description: How long to wait between firing events when using "Hold" as the long press mode
+          default: 500ms
+          selector:
+            duration:
+              enable_millisecond: true
 
     #####################
     ## Button 2 Inputs ##
@@ -74,6 +81,13 @@ blueprint:
           default: []
           selector:
             action: {}
+        button_2_hold_delay_ms:
+          name: Long Press
+          description: How long to wait between firing events when using "Hold" as the long press mode
+          default: 500ms
+          selector:
+            duration:
+              enable_millisecond: true
 
     #####################
     ## Button 3 Inputs ##
@@ -105,6 +119,13 @@ blueprint:
           default: []
           selector:
             action: {}
+        button_3_hold_delay_ms:
+          name: Long Press
+          description: How long to wait between firing events when using "Hold" as the long press mode
+          default: 500ms
+          selector:
+            duration:
+              enable_millisecond: true
 
     #####################
     ## Button 4 Inputs ##
@@ -136,6 +157,13 @@ blueprint:
           default: []
           selector:
             action: {}
+        button_4_hold_delay_ms:
+          name: Long Press
+          description: How long to wait between firing events when using "Hold" as the long press mode
+          default: 500ms
+          selector:
+            duration:
+              enable_millisecond: true
 
 mode: restart # Needs to be "restart" because the _release events need to stop the "long press" events (which would otherwise continually fire)
 trigger:
@@ -246,7 +274,10 @@ variables: # Variables are needed if referencing inputs inside a template within
   button_2_long_press_mode: !input button_2_long_press_mode
   button_3_long_press_mode: !input button_3_long_press_mode
   button_4_long_press_mode: !input button_4_long_press_mode
-  long_press_delay_ms: 500
+  button_1_hold_delay_ms: !input button_1_hold_delay_ms
+  button_2_hold_delay_ms: !input button_2_hold_delay_ms
+  button_3_hold_delay_ms: !input button_3_hold_delay_ms
+  button_4_hold_delay_ms: !input button_4_hold_delay_ms
 action:
 - choose:
     ######################
@@ -273,7 +304,7 @@ action:
                     hours: 0
                     minutes: 0
                     seconds: 0
-                    milliseconds: '{{ long_press_delay_ms | int }}'
+                    milliseconds: '{{ button_1_hold_delay_ms | int }}'
               while:
                 - condition: trigger
                   id: 1_press_long
@@ -302,7 +333,7 @@ action:
                     hours: 0
                     minutes: 0
                     seconds: 0
-                    milliseconds: '{{ long_press_delay_ms | int }}'
+                    milliseconds: '{{ button_2_hold_delay_ms | int }}'
               while:
                 - condition: trigger
                   id: 2_press_long
@@ -331,7 +362,7 @@ action:
                     hours: 0
                     minutes: 0
                     seconds: 0
-                    milliseconds: '{{ long_press_delay_ms | int }}'
+                    milliseconds: '{{ button_3_hold_delay_ms | int }}'
               while:
                 - condition: trigger
                   id: 3_press_long
@@ -360,7 +391,7 @@ action:
                     hours: 0
                     minutes: 0
                     seconds: 0
-                    milliseconds: '{{ long_press_delay_ms | int }}'
+                    milliseconds: '{{ button_4_hold_delay_ms | int }}'
               while:
                 - condition: trigger
                   id: 4_press_long
