@@ -181,6 +181,90 @@ blueprint:
             duration:
               enable_millisecond: true
 
+    ########################
+    ## Top Buttons Inputs ##
+    ########################
+    button_tops:
+      name: "Top Buttons (Simultaneous Press)"
+      collapsed: true
+      input:
+        button_tops_actions:
+          name: Press
+          default: []
+          selector:
+            action: {}
+        button_tops_long_press_mode:
+          name: '"Long Press" Button Behavior'
+          default: press
+          selector:
+            select:
+              options:
+              - value: press
+                label: Press
+              - value: hold
+                label: Hold
+              sort: false
+              custom_value: false
+              multiple: false
+        button_tops_actions_long:
+          name: Long Press
+          default: []
+          selector:
+            action: {}
+        button_tops_hold_delay:
+          name: '"Hold" Delay'
+          description: How long to wait between firing events when using "Hold" as the long press mode
+          default:
+            hours: 0
+            minutes: 0
+            seconds: 0
+            milliseconds: 500
+          selector:
+            duration:
+              enable_millisecond: true
+
+    ###########################
+    ## Bottom Buttons Inputs ##
+    ###########################
+    button_bottoms:
+      name: "Bottom Buttons (Simultaneous Press)"
+      collapsed: true
+      input:
+        button_bottoms_actions:
+          name: Press
+          default: []
+          selector:
+            action: {}
+        button_bottoms_long_press_mode:
+          name: '"Long Press" Button Behavior'
+          default: press
+          selector:
+            select:
+              options:
+              - value: press
+                label: Press
+              - value: hold
+                label: Hold
+              sort: false
+              custom_value: false
+              multiple: false
+        button_bottoms_actions_long:
+          name: Long Press
+          default: []
+          selector:
+            action: {}
+        button_bottoms_hold_delay:
+          name: '"Hold" Delay'
+          description: How long to wait between firing events when using "Hold" as the long press mode
+          default:
+            hours: 0
+            minutes: 0
+            seconds: 0
+            milliseconds: 500
+          selector:
+            duration:
+              enable_millisecond: true
+
 mode: restart # Needs to be "restart" because the _release events need to stop the "long press" events (which would otherwise continually fire)
 trigger:
 - device_id: !input switch_device_id
@@ -256,13 +340,13 @@ trigger:
   platform: device
   type: remote_button_short_release
   subtype: top_buttons
-  id: top_buttons_press
+  id: tops_press
 - device_id: !input switch_device_id
   domain: deconz
   platform: device
   type: remote_button_long_press
   subtype: top_buttons
-  id: top_buttons_press_long
+  id: tops_press_long
 - device_id: !input switch_device_id
   domain: deconz
   platform: device
@@ -273,13 +357,13 @@ trigger:
   platform: device
   type: remote_button_short_release
   subtype: bottom_buttons
-  id: bottom_buttons_press
+  id: bottoms_press
 - device_id: !input switch_device_id
   domain: deconz
   platform: device
   type: remote_button_long_press
   subtype: bottom_buttons
-  id: bottom_buttons_press_long
+  id: bottoms_press_long
 - device_id: !input switch_device_id
   domain: deconz
   platform: device
@@ -290,6 +374,8 @@ variables: # Variables are needed if referencing inputs inside a template within
   button_2_long_press_mode: !input button_2_long_press_mode
   button_3_long_press_mode: !input button_3_long_press_mode
   button_4_long_press_mode: !input button_4_long_press_mode
+  button_tops_long_press_mode: !input button_tops_long_press_mode
+  button_bottoms_long_press_mode: !input button_bottoms_long_press_mode
 action:
 - choose:
     ######################
@@ -391,3 +477,53 @@ action:
               while:
                 - condition: trigger
                   id: 4_press_long
+
+    ###################
+    ## Tops Actions ##
+    ##################
+  - conditions:
+    - condition: trigger
+      id: tops_press
+    sequence: !input button_tops_actions
+  - conditions:
+    - condition: trigger
+      id: tops_press_long
+    sequence:
+      - if:
+        - condition: template
+          value_template: '{{ button_tops_long_press_mode == "press" }}'
+        then:
+          - sequence: !input button_tops_actions_long
+        else:
+          - repeat:
+              sequence:
+                - sequence: !input button_tops_actions_long
+                - delay: !input button_tops_hold_delay
+              while:
+                - condition: trigger
+                  id: tops_press_long
+
+    #####################
+    ## Bottoms Actions ##
+    #####################
+  - conditions:
+    - condition: trigger
+      id: bottoms_press
+    sequence: !input button_bottoms_actions
+  - conditions:
+    - condition: trigger
+      id: bottoms_press_long
+    sequence:
+      - if:
+        - condition: template
+          value_template: '{{ button_bottoms_long_press_mode == "press" }}'
+        then:
+          - sequence: !input button_bottoms_actions_long
+        else:
+          - repeat:
+              sequence:
+                - sequence: !input button_bottoms_actions_long
+                - delay: !input button_bottoms_hold_delay
+              while:
+                - condition: trigger
+                  id: bottoms_press_long
