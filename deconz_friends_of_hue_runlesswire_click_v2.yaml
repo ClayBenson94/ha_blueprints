@@ -43,7 +43,7 @@ blueprint:
           default: []
           selector:
             action: {}
-        button_1_hold_delay_ms:
+        button_1_hold_delay:
           name: '"Hold" Delay'
           description: How long to wait between firing events when using "Hold" as the long press mode
           default:
@@ -85,7 +85,7 @@ blueprint:
           default: []
           selector:
             action: {}
-        button_2_hold_delay_ms:
+        button_2_hold_delay:
           name: '"Hold" Delay'
           description: How long to wait between firing events when using "Hold" as the long press mode
           default:
@@ -127,7 +127,7 @@ blueprint:
           default: []
           selector:
             action: {}
-        button_3_hold_delay_ms:
+        button_3_hold_delay:
           name: '"Hold" Delay'
           description: How long to wait between firing events when using "Hold" as the long press mode
           default:
@@ -169,7 +169,7 @@ blueprint:
           default: []
           selector:
             action: {}
-        button_4_hold_delay_ms:
+        button_4_hold_delay:
           name: '"Hold" Delay'
           description: How long to wait between firing events when using "Hold" as the long press mode
           default:
@@ -290,10 +290,6 @@ variables: # Variables are needed if referencing inputs inside a template within
   button_2_long_press_mode: !input button_2_long_press_mode
   button_3_long_press_mode: !input button_3_long_press_mode
   button_4_long_press_mode: !input button_4_long_press_mode
-  button_1_hold_delay_ms: !input button_1_hold_delay_ms
-  button_2_hold_delay_ms: !input button_2_hold_delay_ms
-  button_3_hold_delay_ms: !input button_3_hold_delay_ms
-  button_4_hold_delay_ms: !input button_4_hold_delay_ms
 action:
 - choose:
     ######################
@@ -316,7 +312,7 @@ action:
           - repeat:
               sequence:
                 - sequence: !input button_1_actions_long
-                - delay: !input button_1_hold_delay_ms
+                - delay: !input button_1_hold_delay
               while:
                 - condition: trigger
                   id: 1_press_long
@@ -341,7 +337,7 @@ action:
           - repeat:
               sequence:
                 - sequence: !input button_2_actions_long
-                - delay: !input button_2_hold_delay_ms
+                - delay: !input button_2_hold_delay
               while:
                 - condition: trigger
                   id: 2_press_long
@@ -366,7 +362,7 @@ action:
           - repeat:
               sequence:
                 - sequence: !input button_3_actions_long
-                - delay: !input button_3_hold_delay_ms
+                - delay: !input button_3_hold_delay
               while:
                 - condition: trigger
                   id: 3_press_long
@@ -391,7 +387,7 @@ action:
           - repeat:
               sequence:
                 - sequence: !input button_4_actions_long
-                - delay: !input button_4_hold_delay_ms
+                - delay: !input button_4_hold_delay
               while:
                 - condition: trigger
                   id: 4_press_long
