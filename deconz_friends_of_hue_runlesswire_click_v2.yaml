@@ -46,7 +46,8 @@ blueprint:
         button_1_hold_delay_ms:
           name: Long Press
           description: How long to wait between firing events when using "Hold" as the long press mode
-          default: 500ms
+          default:
+            milliseconds: 500
           selector:
             duration:
               enable_millisecond: true
@@ -84,7 +85,8 @@ blueprint:
         button_2_hold_delay_ms:
           name: Long Press
           description: How long to wait between firing events when using "Hold" as the long press mode
-          default: 500ms
+          default:
+            milliseconds: 500
           selector:
             duration:
               enable_millisecond: true
@@ -122,7 +124,8 @@ blueprint:
         button_3_hold_delay_ms:
           name: Long Press
           description: How long to wait between firing events when using "Hold" as the long press mode
-          default: 500ms
+          default:
+            milliseconds: 500
           selector:
             duration:
               enable_millisecond: true
@@ -160,7 +163,8 @@ blueprint:
         button_4_hold_delay_ms:
           name: Long Press
           description: How long to wait between firing events when using "Hold" as the long press mode
-          default: 500ms
+          default:
+            milliseconds: 500
           selector:
             duration:
               enable_millisecond: true
