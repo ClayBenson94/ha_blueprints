@@ -47,6 +47,9 @@ blueprint:
           name: Long Press
           description: How long to wait between firing events when using "Hold" as the long press mode
           default:
+            hours: 0
+            minutes: 0
+            seconds: 0
             milliseconds: 500
           selector:
             duration:
@@ -86,6 +89,9 @@ blueprint:
           name: Long Press
           description: How long to wait between firing events when using "Hold" as the long press mode
           default:
+            hours: 0
+            minutes: 0
+            seconds: 0
             milliseconds: 500
           selector:
             duration:
@@ -125,6 +131,9 @@ blueprint:
           name: Long Press
           description: How long to wait between firing events when using "Hold" as the long press mode
           default:
+            hours: 0
+            minutes: 0
+            seconds: 0
             milliseconds: 500
           selector:
             duration:
@@ -164,6 +173,9 @@ blueprint:
           name: Long Press
           description: How long to wait between firing events when using "Hold" as the long press mode
           default:
+            hours: 0
+            minutes: 0
+            seconds: 0
             milliseconds: 500
           selector:
             duration:
