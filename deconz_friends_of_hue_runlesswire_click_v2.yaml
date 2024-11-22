@@ -1,0 +1,366 @@
+blueprint:
+  name: RunLessWire Click (Friends of Hue) V2
+  homeassistant:
+    min_version: 2024.6.0
+  domain: automation
+  input:
+    ####################
+    ## General Inputs ##
+    ####################
+    switch_device_id:
+      name: Switch Device ID
+      description: The Device ID of the Friends of Hue switch
+      selector:
+        text: {}
+
+    #####################
+    ## Button 1 Inputs ##
+    #####################
+    button_1:
+      name: "Button 1 (Top Left)"
+      collapsed: true
+      input:
+        button_1_actions:
+          name: Press
+          default: []
+          selector:
+            action: {}
+        button_1_long_press_mode:
+          name: '"Long Press" Button Behavior'
+          default: press
+          selector:
+            select:
+              options:
+              - value: press
+                label: Press
+              - value: hold
+                label: Hold
+              sort: false
+              custom_value: false
+              multiple: false
+        button_1_actions_long:
+          name: Long Press
+          default: []
+          selector:
+            action: {}
+
+    #####################
+    ## Button 2 Inputs ##
+    #####################
+    button_2:
+      name: "Button 2 (Bottom Left)"
+      collapsed: true
+      input:
+        button_2_actions:
+          name: Press
+          default: []
+          selector:
+            action: {}
+        button_2_long_press_mode:
+          name: '"Long Press" Button Behavior'
+          default: press
+          selector:
+            select:
+              options:
+              - value: press
+                label: Press
+              - value: hold
+                label: Hold
+              sort: false
+              custom_value: false
+              multiple: false
+        button_2_actions_long:
+          name: Long Press
+          default: []
+          selector:
+            action: {}
+
+    #####################
+    ## Button 3 Inputs ##
+    #####################
+    button_3:
+      name: "Button 3 (Top Right)"
+      collapsed: true
+      input:
+        button_3_actions:
+          name: Press
+          default: []
+          selector:
+            action: {}
+        button_3_long_press_mode:
+          name: '"Long Press" Button Behavior'
+          default: press
+          selector:
+            select:
+              options:
+              - value: press
+                label: Press
+              - value: hold
+                label: Hold
+              sort: false
+              custom_value: false
+              multiple: false
+        button_3_actions_long:
+          name: Long Press
+          default: []
+          selector:
+            action: {}
+
+    #####################
+    ## Button 4 Inputs ##
+    #####################
+    button_4:
+      name: "Button 4 (Bottom Right)"
+      collapsed: true
+      input:
+        button_4_actions:
+          name: Press
+          default: []
+          selector:
+            action: {}
+        button_4_long_press_mode:
+          name: '"Long Press" Button Behavior'
+          default: press
+          selector:
+            select:
+              options:
+              - value: press
+                label: Press
+              - value: hold
+                label: Hold
+              sort: false
+              custom_value: false
+              multiple: false
+        button_4_actions_long:
+          name: Long Press
+          default: []
+          selector:
+            action: {}
+
+mode: restart # Needs to be "restart" because the _release events need to stop the "long press" events (which would otherwise continually fire)
+trigger:
+- device_id: !input switch_device_id
+  domain: deconz
+  platform: device
+  type: remote_button_short_release
+  subtype: button_1
+  id: 1_press
+- device_id: !input switch_device_id
+  domain: deconz
+  platform: device
+  type: remote_button_long_press
+  subtype: button_1
+  id: 1_press_long
+- device_id: !input switch_device_id
+  domain: deconz
+  platform: device
+  type: remote_button_long_release
+  subtype: button_1
+- device_id: !input switch_device_id
+  domain: deconz
+  platform: device
+  type: remote_button_short_release
+  subtype: button_2
+  id: 2_press
+- device_id: !input switch_device_id
+  domain: deconz
+  platform: device
+  type: remote_button_long_press
+  subtype: button_2
+  id: 2_press_long
+- device_id: !input switch_device_id
+  domain: deconz
+  platform: device
+  type: remote_button_long_release
+  subtype: button_2
+- device_id: !input switch_device_id
+  domain: deconz
+  platform: device
+  type: remote_button_short_release
+  subtype: button_3
+  id: 3_press
+- device_id: !input switch_device_id
+  domain: deconz
+  platform: device
+  type: remote_button_long_press
+  subtype: button_3
+  id: 3_press_long
+- device_id: !input switch_device_id
+  domain: deconz
+  platform: device
+  type: remote_button_long_release
+  subtype: button_3
+- device_id: !input switch_device_id
+  domain: deconz
+  platform: device
+  type: remote_button_short_release
+  subtype: button_4
+  id: 4_press
+- device_id: !input switch_device_id
+  domain: deconz
+  platform: device
+  type: remote_button_long_press
+  subtype: button_4
+  id: 4_press_long
+- device_id: !input switch_device_id
+  domain: deconz
+  platform: device
+  type: remote_button_long_release
+  subtype: button_4
+- device_id: !input switch_device_id
+  domain: deconz
+  platform: device
+  type: remote_button_short_release
+  subtype: top_buttons
+  id: top_buttons_press
+- device_id: !input switch_device_id
+  domain: deconz
+  platform: device
+  type: remote_button_long_press
+  subtype: top_buttons
+  id: top_buttons_press_long
+- device_id: !input switch_device_id
+  domain: deconz
+  platform: device
+  type: remote_button_long_release
+  subtype: top_buttons
+- device_id: !input switch_device_id
+  domain: deconz
+  platform: device
+  type: remote_button_short_release
+  subtype: bottom_buttons
+  id: bottom_buttons_press
+- device_id: !input switch_device_id
+  domain: deconz
+  platform: device
+  type: remote_button_long_press
+  subtype: bottom_buttons
+  id: bottom_buttons_press_long
+- device_id: !input switch_device_id
+  domain: deconz
+  platform: device
+  type: remote_button_long_release
+  subtype: bottom_buttons
+variables: # Variables are needed if referencing inputs inside a template within `action`
+  button_1_long_press_mode: !input button_1_long_press_mode
+  button_2_long_press_mode: !input button_2_long_press_mode
+  button_3_long_press_mode: !input button_3_long_press_mode
+  button_4_long_press_mode: !input button_4_long_press_mode
+  long_press_delay_ms: 500
+action:
+- choose:
+    ######################
+    ## Button 1 Actions ##
+    ######################
+  - conditions:
+    - condition: trigger
+      id: 1_press
+    sequence: !input button_1_actions
+  - conditions:
+    - condition: trigger
+      id: 1_press_long
+    sequence:
+      - if:
+        - condition: template
+          value_template: '{{ button_1_long_press_mode == "press" }}'
+        then:
+          - sequence: !input button_1_actions_long
+        else:
+          - repeat:
+              sequence:
+                - sequence: !input button_1_actions_long
+                - delay:
+                    hours: 0
+                    minutes: 0
+                    seconds: 0
+                    milliseconds: '{{ long_press_delay_ms | int }}'
+              while:
+                - condition: trigger
+                  id: 1_press_long
+
+    ######################
+    ## Button 2 Actions ##
+    ######################
+  - conditions:
+    - condition: trigger
+      id: 2_press
+    sequence: !input button_2_actions
+  - conditions:
+    - condition: trigger
+      id: 2_press_long
+    sequence:
+      - if:
+        - condition: template
+          value_template: '{{ button_2_long_press_mode == "press" }}'
+        then:
+          - sequence: !input button_2_actions_long
+        else:
+          - repeat:
+              sequence:
+                - sequence: !input button_2_actions_long
+                - delay:
+                    hours: 0
+                    minutes: 0
+                    seconds: 0
+                    milliseconds: '{{ long_press_delay_ms | int }}'
+              while:
+                - condition: trigger
+                  id: 2_press_long
+
+    ######################
+    ## Button 3 Actions ##
+    ######################
+  - conditions:
+    - condition: trigger
+      id: 3_press
+    sequence: !input button_3_actions
+  - conditions:
+    - condition: trigger
+      id: 3_press_long
+    sequence:
+      - if:
+        - condition: template
+          value_template: '{{ button_3_long_press_mode == "press" }}'
+        then:
+          - sequence: !input button_3_actions_long
+        else:
+          - repeat:
+              sequence:
+                - sequence: !input button_3_actions_long
+                - delay:
+                    hours: 0
+                    minutes: 0
+                    seconds: 0
+                    milliseconds: '{{ long_press_delay_ms | int }}'
+              while:
+                - condition: trigger
+                  id: 3_press_long
+
+    ######################
+    ## Button 4 Actions ##
+    ######################
+  - conditions:
+    - condition: trigger
+      id: 4_press
+    sequence: !input button_4_actions
+  - conditions:
+    - condition: trigger
+      id: 4_press_long
+    sequence:
+      - if:
+        - condition: template
+          value_template: '{{ button_4_long_press_mode == "press" }}'
+        then:
+          - sequence: !input button_4_actions_long
+        else:
+          - repeat:
+              sequence:
+                - sequence: !input button_4_actions_long
+                - delay:
+                    hours: 0
+                    minutes: 0
+                    seconds: 0
+                    milliseconds: '{{ long_press_delay_ms | int }}'
+              while:
+                - condition: trigger
+                  id: 4_press_long
