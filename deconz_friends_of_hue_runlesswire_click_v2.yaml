@@ -316,11 +316,7 @@ action:
           - repeat:
               sequence:
                 - sequence: !input button_1_actions_long
-                - delay:
-                    hours: 0
-                    minutes: 0
-                    seconds: 0
-                    milliseconds: '{{ button_1_hold_delay_ms | int }}'
+                - delay: !input button_1_hold_delay_ms
               while:
                 - condition: trigger
                   id: 1_press_long
@@ -345,11 +341,7 @@ action:
           - repeat:
               sequence:
                 - sequence: !input button_2_actions_long
-                - delay:
-                    hours: 0
-                    minutes: 0
-                    seconds: 0
-                    milliseconds: '{{ button_2_hold_delay_ms | int }}'
+                - delay: !input button_2_hold_delay_ms
               while:
                 - condition: trigger
                   id: 2_press_long
@@ -374,11 +366,7 @@ action:
           - repeat:
               sequence:
                 - sequence: !input button_3_actions_long
-                - delay:
-                    hours: 0
-                    minutes: 0
-                    seconds: 0
-                    milliseconds: '{{ button_3_hold_delay_ms | int }}'
+                - delay: !input button_3_hold_delay_ms
               while:
                 - condition: trigger
                   id: 3_press_long
@@ -403,11 +391,7 @@ action:
           - repeat:
               sequence:
                 - sequence: !input button_4_actions_long
-                - delay:
-                    hours: 0
-                    minutes: 0
-                    seconds: 0
-                    milliseconds: '{{ button_4_hold_delay_ms | int }}'
+                - delay: !input button_4_hold_delay_ms
               while:
                 - condition: trigger
                   id: 4_press_long
