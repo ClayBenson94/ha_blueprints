@@ -4,9 +4,13 @@ blueprint:
     min_version: '2024.6.0'
   description: |
     Below is a list of variables that are exposed by this blueprint that can be used in templates:
-    - `dial_button`: One of `button1`, `button2`, `button3`, or `button4`, based on what button was being pressed.
+    - `dial_button`: If a button is pressed, will be one of `button1`, `button2`, `button3`, or `button4`.
+    - `rotary_event`: If the rotary dial is turned, an integer representing the amount the dial was turned. Will be a positive integer when clockwise, negative when counter-clockwise.
   domain: automation
   input:
+    ###########################
+    ## Overall Script Inputs ##
+    ###########################
     remote:
       name: Hue Dial Switch
       selector:
@@ -14,46 +18,31 @@ blueprint:
           integration: deconz
           model: RDM002
           multiple: false
-    short_button_press:
-      name: 🕛 Short Button Presses
+
+    #####################
+    ## Button 1 Inputs ##
+    #####################
+    button1:
+      name: Button 1
       collapsed: true
       input:
-        button1:
-          name: Button 1
+        button1_short:
+          name: Button 1 (Short Press)
           default: []
           selector:
             action: {}
-        button2:
-          name: Button 2️
+        button1_long:
+          name: "Button 1 (Long Press)"
           default: []
           selector:
             action: {}
-        button3:
-          name: Button 3️
-          default: []
-          selector:
-            action: {}
-        button4:
-          name: Button 4️
-          default: []
-          selector:
-            action: {}
-        short_pre:
-          name: Pre short button press
-          description: Action to run ***before every*** short button presses.
-          default: []
-          selector:
-            action: {}
-    long_button_press:
-      name: 🕒 Long Button Presses
-      collapsed: true
-      input:
-        long_press_mode:
-          name: "\"Long Press\" Button Behavior"
+        button1_long_press_mode:
+          name: '"Long Press" Button Behavior'
           description: |
-            Define how you want long pressing a button to work.
+            Define how you want long pressing this button to work.
             - `Press` will run your actions when releasing after a long press.
             - `Hold` will run your action multiple times, firing events roughly every ~1s while the button is held.
+               NOTE: Generic button actions will still run once on `Press` but will run each time the `Hold` event fires, if configured.
           default: press
           selector:
             select:
@@ -62,26 +51,109 @@ blueprint:
                   label: Press
                 - value: hold
                   label: Hold
-        button1_long:
-          name: "Button 1"
+
+    #####################
+    ## Button 2 Inputs ##
+    #####################
+    button2:
+      name: Button 2
+      collapsed: true
+      input:
+        button2_short:
+          name: Button 2 (Short Press)
           default: []
           selector:
             action: {}
         button2_long:
-          name: "Button 2"
+          name: "Button 2 (Long Press)"
+          default: []
+          selector:
+            action: {}
+        button2_long_press_mode:
+          name: '"Long Press" Button Behavior'
+          description: |
+            Define how you want long pressing this button to work.
+            - `Press` will run your actions when releasing after a long press.
+            - `Hold` will run your action multiple times, firing events roughly every ~1s while the button is held.
+               NOTE: Generic button actions will still run once on `Press` but will run each time the `Hold` event fires, if configured.
+          default: press
+          selector:
+            select:
+              options:
+                - value: press
+                  label: Press
+                - value: hold
+                  label: Hold
+
+    #####################
+    ## Button 3 Inputs ##
+    #####################
+    button3:
+      name: Button 3
+      collapsed: true
+      input:
+        button3_short:
+          name: Button 3 (Short Press)
           default: []
           selector:
             action: {}
         button3_long:
-          name: "Button 3"
+          name: "Button 3 (Long Press)"
+          default: []
+          selector:
+            action: {}
+        button3_long_press_mode:
+          name: '"Long Press" Button Behavior'
+          description: |
+            Define how you want long pressing this button to work.
+            - `Press` will run your actions when releasing after a long press.
+            - `Hold` will run your action multiple times, firing events roughly every ~1s while the button is held.
+               NOTE: Generic button actions will still run once on `Press` but will run each time the `Hold` event fires, if configured.
+          default: press
+          selector:
+            select:
+              options:
+                - value: press
+                  label: Press
+                - value: hold
+                  label: Hold
+
+    #####################
+    ## Button 4 Inputs ##
+    #####################
+    button4:
+      name: Button 4
+      collapsed: true
+      input:
+        button4_short:
+          name: Button 4 (Short Press)
           default: []
           selector:
             action: {}
         button4_long:
-          name: "Button 4"
+          name: "Button 4 (Long Press)"
           default: []
           selector:
             action: {}
+        button4_long_press_mode:
+          name: '"Long Press" Button Behavior'
+          description: |
+            Define how you want long pressing this button to work.
+            - `Press` will run your actions when releasing after a long press.
+            - `Hold` will run your action multiple times, firing events roughly every ~1s while the button is held.
+               NOTE: Generic button actions will still run once on `Press` but will run each time the `Hold` event fires, if configured.
+          default: press
+          selector:
+            select:
+              options:
+                - value: press
+                  label: Press
+                - value: hold
+                  label: Hold
+
+    #####################
+    ## Rotation Inputs ##
+    #####################
     rotation:
       name: Rotation Events
       collapsed: true
@@ -95,6 +167,32 @@ blueprint:
         rotate_right:
           name: ↩️ Rotate Right
           description: (10% Brightness precentage, no transition -> for smooth hue dimming)
+          default: []
+          selector:
+            action: {}
+
+    ####################
+    ## Generic Inputs ##
+    ####################
+    generic_actions:
+      name: Generic Actions
+      collapsed: true
+      input:
+        short_generic:
+          name: Generic short button press
+          description: These actions will run ***before each*** short button press. Useful for configuring generic actions that happen on button presses using the `dial_button` variable.
+          default: []
+          selector:
+            action: {}
+        long_generic:
+          name: Generic long button press
+          description: These actions will run ***before each*** long button press. Useful for configuring generic actions that happen on button presses using the `dial_button` variable.
+          default: []
+          selector:
+            action: {}
+        rotate_generic:
+          name: Generic rotation event
+          description: These actions will run ***before each*** short button press. Useful for configuring generic actions that happen on any rotation event using the `rotary_event` variable.
           default: []
           selector:
             action: {}
@@ -123,59 +221,74 @@ action:
         {% elif (event | string).startswith('4') %}
           button4
         {% endif %}
-      long_press_mode: !input long_press_mode
+      button1_long_press_mode: !input button1_long_press_mode
+      button2_long_press_mode: !input button2_long_press_mode
+      button3_long_press_mode: !input button3_long_press_mode
+      button4_long_press_mode: !input button4_long_press_mode
   - choose:
     - conditions:
       - '{{ event == 1002 }}'
       sequence:
         - repeat:
             count: 1
-            sequence: !input short_pre
+            sequence: !input short_generic
         - repeat:
             count: 1
-            sequence: !input button1
+            sequence: !input button1_short
     - conditions:
       - '{{ event == 2002 }}'
       sequence:
         - repeat:
             count: 1
-            sequence: !input short_pre
+            sequence: !input short_generic
         - repeat:
             count: 1
-            sequence: !input button2
+            sequence: !input button2_short
     - conditions:
       - '{{ event == 3002 }}'
       sequence:
         - repeat:
             count: 1
-            sequence: !input short_pre
+            sequence: !input short_generic
         - repeat:
             count: 1
-            sequence: !input button3
+            sequence: !input button3_short
     - conditions:
       - '{{ event == 4002 }}'
       sequence:
         - repeat:
             count: 1
-            sequence: !input short_pre
+            sequence: !input short_generic
         - repeat:
             count: 1
-            sequence: !input button4
+            sequence: !input button4_short
     - conditions:
-      - '{{ (event == 1001 and long_press_mode == "hold") or (event == 1003 and long_press_mode == "press") }}'
+      - '{{ (event == 1001 and button1_long_press_mode == "hold") or (event == 1003 and button1_long_press_mode == "press") }}'
       sequence: !input button1_long
     - conditions:
-      - '{{ (event == 2001 and long_press_mode == "hold") or (event == 2003 and long_press_mode == "press") }}'
+      - '{{ (event == 2001 and button2_long_press_mode == "hold") or (event == 2003 and button2_long_press_mode == "press") }}'
       sequence: !input button2_long
     - conditions:
-      - '{{ (event == 3001 and long_press_mode == "hold") or (event == 3003 and long_press_mode == "press") }}'
+      - '{{ (event == 3001 and button3_long_press_mode == "hold") or (event == 3003 and button3_long_press_mode == "press") }}'
       sequence: !input button3_long
     - conditions:
-      - '{{ (event == 4001 and long_press_mode == "hold") or (event == 4003 and long_press_mode == "press") }}'
+      - '{{ (event == 4001 and button4_long_press_mode == "hold") or (event == 4003 and button4_long_press_mode == "press") }}'
       sequence: !input button4_long
     - conditions:
       - '{{ rotary_event <= 0 }}'
-      sequence: !input rotate_left
+      sequence:
+        - repeat:
+            count: 1
+            sequence: !input rotate_generic
+        - repeat:
+            count: 1
+            sequence: !input rotate_left
     - conditions:
       - '{{ rotary_event >= 0 }}'
-      sequence: !input rotate_right
+      sequence:
+        - repeat:
+            count: 1
+            sequence: !input rotate_generic
+        - repeat:
+            count: 1
+            sequence: !input rotate_right
