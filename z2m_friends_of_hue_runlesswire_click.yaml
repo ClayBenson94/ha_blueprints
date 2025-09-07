@@ -275,103 +275,101 @@ triggers:
   type: action
   subtype: press_1
   id: 1_press
-
-  ## TODO
 # - device_id: !input switch_device_id
-#   domain: deconz
-#   platform: device
-#   type: remote_button_long_press
+#   domain: mqtt
+#   trigger: device
+#   type: action #remote_button_long_press
 #   subtype: button_1
 #   id: 1_press_long
 # - device_id: !input switch_device_id
-#   domain: deconz
-#   platform: device
-#   type: remote_button_long_release
+#   domain: mqtt
+#   trigger: device
+#   type: action #remote_button_long_release
 #   subtype: button_1
+- device_id: !input switch_device_id
+  domain: mqtt
+  trigger: device
+  type: action #remote_button_short_release
+  subtype: press_2
+  id: 2_press
 # - device_id: !input switch_device_id
-#   domain: deconz
-#   platform: device
-#   type: remote_button_short_release
-#   subtype: button_2
-#   id: 2_press
-# - device_id: !input switch_device_id
-#   domain: deconz
-#   platform: device
-#   type: remote_button_long_press
+#   domain: mqtt
+#   trigger: device
+#   type: action #remote_button_long_press
 #   subtype: button_2
 #   id: 2_press_long
 # - device_id: !input switch_device_id
-#   domain: deconz
-#   platform: device
-#   type: remote_button_long_release
+#   domain: mqtt
+#   trigger: device
+#   type: action #remote_button_long_release
 #   subtype: button_2
+- device_id: !input switch_device_id
+  domain: mqtt
+  trigger: device
+  type: action #remote_button_short_release
+  subtype: press_3
+  id: 3_press
 # - device_id: !input switch_device_id
-#   domain: deconz
-#   platform: device
-#   type: remote_button_short_release
-#   subtype: button_3
-#   id: 3_press
-# - device_id: !input switch_device_id
-#   domain: deconz
-#   platform: device
-#   type: remote_button_long_press
+#   domain: mqtt
+#   trigger: device
+#   type: action #remote_button_long_press
 #   subtype: button_3
 #   id: 3_press_long
 # - device_id: !input switch_device_id
-#   domain: deconz
-#   platform: device
-#   type: remote_button_long_release
+#   domain: mqtt
+#   trigger: device
+#   type: action #remote_button_long_release
 #   subtype: button_3
+- device_id: !input switch_device_id
+  domain: mqtt
+  trigger: device
+  type: action #remote_button_short_release
+  subtype: press_4
+  id: 4_press
 # - device_id: !input switch_device_id
-#   domain: deconz
-#   platform: device
-#   type: remote_button_short_release
-#   subtype: button_4
-#   id: 4_press
-# - device_id: !input switch_device_id
-#   domain: deconz
-#   platform: device
-#   type: remote_button_long_press
+#   domain: mqtt
+#   trigger: device
+#   type: action #remote_button_long_press
 #   subtype: button_4
 #   id: 4_press_long
 # - device_id: !input switch_device_id
-#   domain: deconz
-#   platform: device
-#   type: remote_button_long_release
+#   domain: mqtt
+#   trigger: device
+#   type: action #remote_button_long_release
 #   subtype: button_4
+- device_id: !input switch_device_id
+  domain: mqtt
+  trigger: device
+  type: action #remote_button_short_release
+  subtype: press_1_and_3
+  id: tops_press
 # - device_id: !input switch_device_id
-#   domain: deconz
-#   platform: device
-#   type: remote_button_short_release
-#   subtype: top_buttons
-#   id: tops_press
-# - device_id: !input switch_device_id
-#   domain: deconz
-#   platform: device
-#   type: remote_button_long_press
+#   domain: mqtt
+#   trigger: device
+#   type: action #remote_button_long_press
 #   subtype: top_buttons
 #   id: tops_press_long
 # - device_id: !input switch_device_id
-#   domain: deconz
-#   platform: device
-#   type: remote_button_long_release
+#   domain: mqtt
+#   trigger: device
+#   type: action #remote_button_long_release
 #   subtype: top_buttons
+- device_id: !input switch_device_id
+  domain: mqtt
+  trigger: device
+  type: action #remote_button_short_release
+  subtype: press_2_and_4
+  id: bottoms_press
 # - device_id: !input switch_device_id
-#   domain: deconz
-#   platform: device
-#   type: remote_button_short_release
-#   subtype: bottom_buttons
-#   id: bottoms_press
-# - device_id: !input switch_device_id
-#   domain: deconz
-#   platform: device
-#   type: remote_button_long_press
+#   domain: mqtt
+#   trigger: device
+#   type: action #remote_button_long_press
 #   subtype: bottom_buttons
 #   id: bottoms_press_long
 # - device_id: !input switch_device_id
-#   domain: deconz
-#   platform: device
-#   type: remote_button_long_release
+#   domain: mqtt
+#   trigger: device
+#   type: action #remote_button_long_release
 #   subtype: bottom_buttons
 variables: # Variables are needed if referencing inputs inside a template within `action`
   button_1_long_press_mode: !input button_1_long_press_mode
