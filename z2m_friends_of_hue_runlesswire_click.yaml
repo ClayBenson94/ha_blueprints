@@ -269,9 +269,8 @@ blueprint:
 mode: restart # Needs to be "restart" because the _release events need to stop the "long press" events (which would otherwise continually fire)
 trigger:
   ## TODOING
-- device_id: !input switch_device_id
-  domain: mqtt
-  # platform: device
+- domain: mqtt
+  device_id: !input switch_device_id
   type: action
   subtype: press_1
   id: 1_press
