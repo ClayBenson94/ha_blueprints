@@ -415,7 +415,7 @@ action:
       - choose:
           - conditions:
             - condition: template
-              value_template: '{{ !wait.completed }}' # Button Pressed
+              value_template: '{{ not wait.completed }}' # Button Pressed
             sequence: !input button_1_actions
           - conditions:
             - condition: template
