@@ -415,11 +415,11 @@ action:
       - choose:
           - conditions:
             - condition: template
-              value_template: '{{ not wait.completed }}' # Button Pressed
+              value_template: '{{ wait.completed }}' # Button was released (treat as press)
             sequence: !input button_1_actions
           - conditions:
             - condition: template
-              value_template: '{{ wait.completed }}' # Button Held
+              value_template: '{{ not wait.completed }}' # Button Held (wait timed out)
             sequence:
                 - if:
                   - condition: template
