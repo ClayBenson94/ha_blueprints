@@ -286,12 +286,12 @@ triggers:
   type: action
   subtype: press_1
   id: 1_press
-# - device_id: !input switch_device_id # TODO Figure out if causing bugs
-#   domain: mqtt
-#   trigger: device
-#   type: action
-#   subtype: release_1
-#   id: 1_release
+- device_id: !input switch_device_id # TODO Figure out if causing bugs
+  domain: mqtt
+  trigger: device
+  type: action
+  subtype: release_1
+  id: 1_release
 # - device_id: !input switch_device_id
 #   domain: mqtt
 #   trigger: device
