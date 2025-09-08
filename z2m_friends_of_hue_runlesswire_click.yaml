@@ -414,11 +414,13 @@ action:
         continue_on_timeout: true
       - choose:
           - conditions:
-            - condition: '{{ !wait.completed }}' # Button Pressed
-              sequence: !input button_1_actions
+            - condition: template
+              value_template: '{{ !wait.completed }}' # Button Pressed
+            sequence: !input button_1_actions
           - conditions:
-            - condition: '{{ wait.completed }}' # Button Held
-              sequence:
+            - condition: template
+              value_template: '{{ wait.completed }}' # Button Held
+            sequence:
                 - if:
                   - condition: template
                     value_template: '{{ button_1_long_press_mode == "press" }}'
