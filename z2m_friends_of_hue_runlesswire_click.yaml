@@ -355,19 +355,19 @@ triggers:
 - device_id: !input switch_device_id
   domain: mqtt
   trigger: device
-  type: action #remote_button_short_release
+  type: action
   subtype: press_4
   id: 4_press
 - device_id: !input switch_device_id
   domain: mqtt
   trigger: device
-  type: action #remote_button_short_release
+  type: action
   subtype: press_1_and_3
   id: tops_press
 - device_id: !input switch_device_id
   domain: mqtt
   trigger: device
-  type: action #remote_button_short_release
+  type: action
   subtype: press_2_and_4
   id: bottoms_press
 variables: # Variables are needed if referencing inputs inside a template within `action`
@@ -558,9 +558,9 @@ action:
                           - condition: template
                             value_template: '{{ wait.completed }}'
 
-    ######################
+    #########################
     ## Button tops Actions ##
-    ######################
+    #########################
   - conditions:
     - condition: trigger
       id: tops_press
@@ -570,7 +570,7 @@ action:
             domain: mqtt
             trigger: device
             type: action
-            subtype: release_tops
+            subtype: release_1_and_3
         timeout: !input button_tops_long_press_duration
         continue_on_timeout: true
       - choose:
@@ -596,16 +596,16 @@ action:
                                 domain: mqtt
                                 trigger: device
                                 type: action
-                                subtype: release_tops
+                                subtype: release_1_and_3
                             timeout: !input button_tops_hold_delay
                             continue_on_timeout: true
                         until:
                           - condition: template
                             value_template: '{{ wait.completed }}'
 
-    ######################
+    ############################
     ## Button bottoms Actions ##
-    ######################
+    ############################
   - conditions:
     - condition: trigger
       id: bottoms_press
@@ -615,7 +615,7 @@ action:
             domain: mqtt
             trigger: device
             type: action
-            subtype: release_bottoms
+            subtype: release_2_and_4
         timeout: !input button_bottoms_long_press_duration
         continue_on_timeout: true
       - choose:
@@ -641,7 +641,7 @@ action:
                                 domain: mqtt
                                 trigger: device
                                 type: action
-                                subtype: release_bottoms
+                                subtype: release_2_and_4
                             timeout: !input button_bottoms_hold_delay
                             continue_on_timeout: true
                         until:
