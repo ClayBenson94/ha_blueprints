@@ -1,0 +1,649 @@
+blueprint:
+  name: RunLessWire Click (Zigbee2MQTT)
+  homeassistant:
+    min_version: 2024.6.0
+  domain: automation
+  input:
+    ####################
+    ## General Inputs ##
+    ####################
+    switch_device_id:
+      name: Switch Device ID
+      description: The Device ID of the Friends of Hue switch
+      selector:
+        device:
+          multiple: false
+
+    #####################
+    ## Button 1 Inputs ##
+    #####################
+    button_1:
+      name: "Button 1 (Top Left)"
+      collapsed: true
+      input:
+        button_1_actions:
+          name: Press
+          default: []
+          selector:
+            action: {}
+        button_1_long_press_duration:
+          name: '"Long Press" duration'
+          description: How long to wait before considering a press a long press
+          default:
+            hours: 0
+            minutes: 0
+            seconds: 0
+            milliseconds: 500
+          selector:
+            duration:
+              enable_millisecond: true
+        button_1_long_press_mode:
+          name: '"Long Press" Button Behavior'
+          default: press
+          selector:
+            select:
+              options:
+              - value: press
+                label: Press
+              - value: hold
+                label: Hold
+              sort: false
+              custom_value: false
+              multiple: false
+        button_1_actions_long:
+          name: Long Press
+          default: []
+          selector:
+            action: {}
+        button_1_hold_delay:
+          name: '"Hold" Delay'
+          description: How long to wait between firing events when using "Hold" as the long press mode
+          default:
+            hours: 0
+            minutes: 0
+            seconds: 0
+            milliseconds: 500
+          selector:
+            duration:
+              enable_millisecond: true
+
+    #####################
+    ## Button 2 Inputs ##
+    #####################
+    button_2:
+      name: "Button 2 (Bottom Left)"
+      collapsed: true
+      input:
+        button_2_actions:
+          name: Press
+          default: []
+          selector:
+            action: {}
+        button_2_long_press_duration:
+          name: '"Long Press" duration'
+          description: How long to wait before considering a press a long press
+          default:
+            hours: 0
+            minutes: 0
+            seconds: 0
+            milliseconds: 500
+          selector:
+            duration:
+              enable_millisecond: true
+        button_2_long_press_mode:
+          name: '"Long Press" Button Behavior'
+          default: press
+          selector:
+            select:
+              options:
+              - value: press
+                label: Press
+              - value: hold
+                label: Hold
+              sort: false
+              custom_value: false
+              multiple: false
+        button_2_actions_long:
+          name: Long Press
+          default: []
+          selector:
+            action: {}
+        button_2_hold_delay:
+          name: '"Hold" Delay'
+          description: How long to wait between firing events when using "Hold" as the long press mode
+          default:
+            hours: 0
+            minutes: 0
+            seconds: 0
+            milliseconds: 500
+          selector:
+            duration:
+              enable_millisecond: true
+
+    #####################
+    ## Button 3 Inputs ##
+    #####################
+    button_3:
+      name: "Button 3 (Top Right)"
+      collapsed: true
+      input:
+        button_3_actions:
+          name: Press
+          default: []
+          selector:
+            action: {}
+        button_3_long_press_duration:
+          name: '"Long Press" duration'
+          description: How long to wait before considering a press a long press
+          default:
+            hours: 0
+            minutes: 0
+            seconds: 0
+            milliseconds: 500
+          selector:
+            duration:
+              enable_millisecond: true
+        button_3_long_press_mode:
+          name: '"Long Press" Button Behavior'
+          default: press
+          selector:
+            select:
+              options:
+              - value: press
+                label: Press
+              - value: hold
+                label: Hold
+              sort: false
+              custom_value: false
+              multiple: false
+        button_3_actions_long:
+          name: Long Press
+          default: []
+          selector:
+            action: {}
+        button_3_hold_delay:
+          name: '"Hold" Delay'
+          description: How long to wait between firing events when using "Hold" as the long press mode
+          default:
+            hours: 0
+            minutes: 0
+            seconds: 0
+            milliseconds: 500
+          selector:
+            duration:
+              enable_millisecond: true
+
+    #####################
+    ## Button 4 Inputs ##
+    #####################
+    button_4:
+      name: "Button 4 (Bottom Right)"
+      collapsed: true
+      input:
+        button_4_actions:
+          name: Press
+          default: []
+          selector:
+            action: {}
+        button_4_long_press_duration:
+          name: '"Long Press" duration'
+          description: How long to wait before considering a press a long press
+          default:
+            hours: 0
+            minutes: 0
+            seconds: 0
+            milliseconds: 500
+          selector:
+            duration:
+              enable_millisecond: true
+        button_4_long_press_mode:
+          name: '"Long Press" Button Behavior'
+          default: press
+          selector:
+            select:
+              options:
+              - value: press
+                label: Press
+              - value: hold
+                label: Hold
+              sort: false
+              custom_value: false
+              multiple: false
+        button_4_actions_long:
+          name: Long Press
+          default: []
+          selector:
+            action: {}
+        button_4_hold_delay:
+          name: '"Hold" Delay'
+          description: How long to wait between firing events when using "Hold" as the long press mode
+          default:
+            hours: 0
+            minutes: 0
+            seconds: 0
+            milliseconds: 500
+          selector:
+            duration:
+              enable_millisecond: true
+
+    ########################
+    ## Top Buttons Inputs ##
+    ########################
+    button_tops:
+      name: "Top Buttons (Simultaneous Press)"
+      collapsed: true
+      input:
+        button_tops_actions:
+          name: Press
+          default: []
+          selector:
+            action: {}
+        button_tops_long_press_duration:
+          name: '"Long Press" duration'
+          description: How long to wait before considering a press a long press
+          default:
+            hours: 0
+            minutes: 0
+            seconds: 0
+            milliseconds: 500
+          selector:
+            duration:
+              enable_millisecond: true
+        button_tops_long_press_mode:
+          name: '"Long Press" Button Behavior'
+          default: press
+          selector:
+            select:
+              options:
+              - value: press
+                label: Press
+              - value: hold
+                label: Hold
+              sort: false
+              custom_value: false
+              multiple: false
+        button_tops_actions_long:
+          name: Long Press
+          default: []
+          selector:
+            action: {}
+        button_tops_hold_delay:
+          name: '"Hold" Delay'
+          description: How long to wait between firing events when using "Hold" as the long press mode
+          default:
+            hours: 0
+            minutes: 0
+            seconds: 0
+            milliseconds: 500
+          selector:
+            duration:
+              enable_millisecond: true
+
+    ###########################
+    ## Bottom Buttons Inputs ##
+    ###########################
+    button_bottoms:
+      name: "Bottom Buttons (Simultaneous Press)"
+      collapsed: true
+      input:
+        button_bottoms_actions:
+          name: Press
+          default: []
+          selector:
+            action: {}
+        button_bottoms_long_press_duration:
+          name: '"Long Press" duration'
+          description: How long to wait before considering a press a long press
+          default:
+            hours: 0
+            minutes: 0
+            seconds: 0
+            milliseconds: 500
+          selector:
+            duration:
+              enable_millisecond: true
+        button_bottoms_long_press_mode:
+          name: '"Long Press" Button Behavior'
+          default: press
+          selector:
+            select:
+              options:
+              - value: press
+                label: Press
+              - value: hold
+                label: Hold
+              sort: false
+              custom_value: false
+              multiple: false
+        button_bottoms_actions_long:
+          name: Long Press
+          default: []
+          selector:
+            action: {}
+        button_bottoms_hold_delay:
+          name: '"Hold" Delay'
+          description: How long to wait between firing events when using "Hold" as the long press mode
+          default:
+            hours: 0
+            minutes: 0
+            seconds: 0
+            milliseconds: 500
+          selector:
+            duration:
+              enable_millisecond: true
+
+mode: restart # Needs to be "restart" because the _release events need to stop the "long press" events (which would otherwise continually fire)
+triggers:
+- device_id: !input switch_device_id
+  domain: mqtt
+  trigger: device
+  type: action
+  subtype: press_1
+  id: 1_press
+- device_id: !input switch_device_id
+  domain: mqtt
+  trigger: device
+  type: action
+  subtype: press_2
+  id: 2_press
+- device_id: !input switch_device_id
+  domain: mqtt
+  trigger: device
+  type: action
+  subtype: press_3
+  id: 3_press
+- device_id: !input switch_device_id
+  domain: mqtt
+  trigger: device
+  type: action
+  subtype: press_4
+  id: 4_press
+- device_id: !input switch_device_id
+  domain: mqtt
+  trigger: device
+  type: action
+  subtype: press_1_and_3
+  id: tops_press
+- device_id: !input switch_device_id
+  domain: mqtt
+  trigger: device
+  type: action
+  subtype: press_2_and_4
+  id: bottoms_press
+variables: # Variables are needed if referencing inputs inside a template within `action`
+  button_1_long_press_mode: !input button_1_long_press_mode
+  button_2_long_press_mode: !input button_2_long_press_mode
+  button_3_long_press_mode: !input button_3_long_press_mode
+  button_4_long_press_mode: !input button_4_long_press_mode
+  button_tops_long_press_mode: !input button_tops_long_press_mode
+  button_bottoms_long_press_mode: !input button_bottoms_long_press_mode
+action:
+- choose:
+    ######################
+    ## Button 1 Actions ##
+    ######################
+  - conditions:
+    - condition: trigger
+      id: 1_press
+    sequence:
+      - wait_for_trigger:
+          - device_id: !input switch_device_id
+            domain: mqtt
+            trigger: device
+            type: action
+            subtype: release_1
+        timeout: !input button_1_long_press_duration
+        continue_on_timeout: true
+      - choose:
+          - conditions:
+            - condition: template
+              value_template: '{{ wait.completed }}' # Button was released (treat as press)
+            sequence: !input button_1_actions
+          - conditions:
+            - condition: template
+              value_template: '{{ not wait.completed }}' # Button Held (wait timed out)
+            sequence:
+                - if:
+                  - condition: template
+                    value_template: '{{ button_1_long_press_mode == "press" }}'
+                  then:
+                    - sequence: !input button_1_actions_long
+                  else:
+                    - repeat:
+                        sequence:
+                          - sequence: !input button_1_actions_long
+                          - wait_for_trigger:
+                              - device_id: !input switch_device_id
+                                domain: mqtt
+                                trigger: device
+                                type: action
+                                subtype: release_1
+                            timeout: !input button_1_hold_delay
+                            continue_on_timeout: true
+                        until:
+                          - condition: template
+                            value_template: '{{ wait.completed }}'
+    ######################
+    ## Button 2 Actions ##
+    ######################
+  - conditions:
+    - condition: trigger
+      id: 2_press
+    sequence:
+      - wait_for_trigger:
+          - device_id: !input switch_device_id
+            domain: mqtt
+            trigger: device
+            type: action
+            subtype: release_2
+        timeout: !input button_2_long_press_duration
+        continue_on_timeout: true
+      - choose:
+          - conditions:
+            - condition: template
+              value_template: '{{ wait.completed }}' # Button was released (treat as press)
+            sequence: !input button_2_actions
+          - conditions:
+            - condition: template
+              value_template: '{{ not wait.completed }}' # Button Held (wait timed out)
+            sequence:
+                - if:
+                  - condition: template
+                    value_template: '{{ button_2_long_press_mode == "press" }}'
+                  then:
+                    - sequence: !input button_2_actions_long
+                  else:
+                    - repeat:
+                        sequence:
+                          - sequence: !input button_2_actions_long
+                          - wait_for_trigger:
+                              - device_id: !input switch_device_id
+                                domain: mqtt
+                                trigger: device
+                                type: action
+                                subtype: release_2
+                            timeout: !input button_2_hold_delay
+                            continue_on_timeout: true
+                        until:
+                          - condition: template
+                            value_template: '{{ wait.completed }}'
+
+    ######################
+    ## Button 3 Actions ##
+    ######################
+  - conditions:
+    - condition: trigger
+      id: 3_press
+    sequence:
+      - wait_for_trigger:
+          - device_id: !input switch_device_id
+            domain: mqtt
+            trigger: device
+            type: action
+            subtype: release_3
+        timeout: !input button_3_long_press_duration
+        continue_on_timeout: true
+      - choose:
+          - conditions:
+            - condition: template
+              value_template: '{{ wait.completed }}' # Button was released (treat as press)
+            sequence: !input button_3_actions
+          - conditions:
+            - condition: template
+              value_template: '{{ not wait.completed }}' # Button Held (wait timed out)
+            sequence:
+                - if:
+                  - condition: template
+                    value_template: '{{ button_3_long_press_mode == "press" }}'
+                  then:
+                    - sequence: !input button_3_actions_long
+                  else:
+                    - repeat:
+                        sequence:
+                          - sequence: !input button_3_actions_long
+                          - wait_for_trigger:
+                              - device_id: !input switch_device_id
+                                domain: mqtt
+                                trigger: device
+                                type: action
+                                subtype: release_3
+                            timeout: !input button_3_hold_delay
+                            continue_on_timeout: true
+                        until:
+                          - condition: template
+                            value_template: '{{ wait.completed }}'
+
+    ######################
+    ## Button 4 Actions ##
+    ######################
+  - conditions:
+    - condition: trigger
+      id: 4_press
+    sequence:
+      - wait_for_trigger:
+          - device_id: !input switch_device_id
+            domain: mqtt
+            trigger: device
+            type: action
+            subtype: release_4
+        timeout: !input button_4_long_press_duration
+        continue_on_timeout: true
+      - choose:
+          - conditions:
+            - condition: template
+              value_template: '{{ wait.completed }}' # Button was released (treat as press)
+            sequence: !input button_4_actions
+          - conditions:
+            - condition: template
+              value_template: '{{ not wait.completed }}' # Button Held (wait timed out)
+            sequence:
+                - if:
+                  - condition: template
+                    value_template: '{{ button_4_long_press_mode == "press" }}'
+                  then:
+                    - sequence: !input button_4_actions_long
+                  else:
+                    - repeat:
+                        sequence:
+                          - sequence: !input button_4_actions_long
+                          - wait_for_trigger:
+                              - device_id: !input switch_device_id
+                                domain: mqtt
+                                trigger: device
+                                type: action
+                                subtype: release_4
+                            timeout: !input button_4_hold_delay
+                            continue_on_timeout: true
+                        until:
+                          - condition: template
+                            value_template: '{{ wait.completed }}'
+
+    #########################
+    ## Button tops Actions ##
+    #########################
+  - conditions:
+    - condition: trigger
+      id: tops_press
+    sequence:
+      - wait_for_trigger:
+          - device_id: !input switch_device_id
+            domain: mqtt
+            trigger: device
+            type: action
+            subtype: release_1_and_3
+        timeout: !input button_tops_long_press_duration
+        continue_on_timeout: true
+      - choose:
+          - conditions:
+            - condition: template
+              value_template: '{{ wait.completed }}' # Button was released (treat as press)
+            sequence: !input button_tops_actions
+          - conditions:
+            - condition: template
+              value_template: '{{ not wait.completed }}' # Button Held (wait timed out)
+            sequence:
+                - if:
+                  - condition: template
+                    value_template: '{{ button_tops_long_press_mode == "press" }}'
+                  then:
+                    - sequence: !input button_tops_actions_long
+                  else:
+                    - repeat:
+                        sequence:
+                          - sequence: !input button_tops_actions_long
+                          - wait_for_trigger:
+                              - device_id: !input switch_device_id
+                                domain: mqtt
+                                trigger: device
+                                type: action
+                                subtype: release_1_and_3
+                            timeout: !input button_tops_hold_delay
+                            continue_on_timeout: true
+                        until:
+                          - condition: template
+                            value_template: '{{ wait.completed }}'
+
+    ############################
+    ## Button bottoms Actions ##
+    ############################
+  - conditions:
+    - condition: trigger
+      id: bottoms_press
+    sequence:
+      - wait_for_trigger:
+          - device_id: !input switch_device_id
+            domain: mqtt
+            trigger: device
+            type: action
+            subtype: release_2_and_4
+        timeout: !input button_bottoms_long_press_duration
+        continue_on_timeout: true
+      - choose:
+          - conditions:
+            - condition: template
+              value_template: '{{ wait.completed }}' # Button was released (treat as press)
+            sequence: !input button_bottoms_actions
+          - conditions:
+            - condition: template
+              value_template: '{{ not wait.completed }}' # Button Held (wait timed out)
+            sequence:
+                - if:
+                  - condition: template
+                    value_template: '{{ button_bottoms_long_press_mode == "press" }}'
+                  then:
+                    - sequence: !input button_bottoms_actions_long
+                  else:
+                    - repeat:
+                        sequence:
+                          - sequence: !input button_bottoms_actions_long
+                          - wait_for_trigger:
+                              - device_id: !input switch_device_id
+                                domain: mqtt
+                                trigger: device
+                                type: action
+                                subtype: release_2_and_4
+                            timeout: !input button_bottoms_hold_delay
+                            continue_on_timeout: true
+                        until:
+                          - condition: template
+                            value_template: '{{ wait.completed }}'
