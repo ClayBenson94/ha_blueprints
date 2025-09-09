@@ -286,12 +286,12 @@ triggers:
   type: action
   subtype: press_1
   id: 1_press
-- device_id: !input switch_device_id # TODO Figure out if causing bugs
-  domain: mqtt
-  trigger: device
-  type: action
-  subtype: release_1
-  id: 1_release
+# - device_id: !input switch_device_id # TODO Figure out if causing bugs
+#   domain: mqtt
+#   trigger: device
+#   type: action
+#   subtype: release_1
+#   id: 1_release
 # - device_id: !input switch_device_id
 #   domain: mqtt
 #   trigger: device
@@ -429,11 +429,61 @@ action:
                   else:
                     - repeat:
                         sequence:
+                          # 1. Run the action you want to repeat
                           - sequence: !input button_1_actions_long
-                          - delay: !input button_1_hold_delay
-                        while:
-                          - condition: trigger
-                            id: 1_press
+                          # 2. Wait for the release trigger, using the hold_delay as the timeout
+                          - wait_for_trigger:
+                              - device_id: !input switch_device_id
+                                domain: mqtt
+                                trigger: device
+                                type: action
+                                subtype: release_1
+                            timeout: !input button_1_hold_delay
+                            continue_on_timeout: true # <-- This is critical. Allows the script to proceed on timeout.
+                        # This condition is checked AFTER the sequence runs:
+                        # - If release fired: wait.completed == true -> Loop STOPS.
+                        # - If timed out:     wait.completed == false -> Loop REPEATS.
+                        until:
+                          - condition: template
+                            value_template: '{{ wait.completed }}'
+
+  #   ############################
+  #   ## Button 1 Actions Older ##
+  #   ############################
+  # - conditions:
+  #   - condition: trigger
+  #     id: 1_press
+  #   sequence:
+  #     - wait_for_trigger:
+  #         - device_id: !input switch_device_id
+  #           domain: mqtt
+  #           trigger: device
+  #           type: action
+  #           subtype: release_1
+  #       timeout: !input button_1_long_press_duration
+  #       continue_on_timeout: true
+  #     - choose:
+  #         - conditions:
+  #           - condition: template
+  #             value_template: '{{ wait.completed }}' # Button was released (treat as press)
+  #           sequence: !input button_1_actions
+  #         - conditions:
+  #           - condition: template
+  #             value_template: '{{ not wait.completed }}' # Button Held (wait timed out)
+  #           sequence:
+  #               - if:
+  #                 - condition: template
+  #                   value_template: '{{ button_1_long_press_mode == "press" }}'
+  #                 then:
+  #                   - sequence: !input button_1_actions_long
+  #                 else:
+  #                   - repeat:
+  #                       sequence:
+  #                         - sequence: !input button_1_actions_long
+  #                         - delay: !input button_1_hold_delay
+  #                       while:
+  #                         - condition: trigger
+  #                           id: 1_press
 
     ##########################
     ## Button 1 Actions OLD ##
